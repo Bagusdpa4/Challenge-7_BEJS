@@ -1,0 +1,29 @@
+### create user
+POST http://localhost:3000/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "name": "Bagus Dwi",
+    "email": "sugab.dwi88@gmail.com",
+    "password": "123456"
+}
+
+### Login User
+POST http://localhost:3000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "sugab.dwi88@gmail.com",
+    "password": "123456"
+}
+
+### login token
+GET http://localhost:3000/api/v1/auth/authenticate
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDcyNjI4MX0.x7yFBTNY58jpH11_X3yJEwcBasavyiTx0LELQWhzeIo
+
+### Get all user
+GET http://localhost:3000/api/v1/users
+
+### Get all user by search
+GET http://localhost:3000/api/v1/users?search=bagus
+

@@ -1,0 +1,280 @@
+openapi: 3.0.1
+info:
+  title: Sentry, Nodemailer, Notifikasi
+  description: Berisi API pada challenge-7 untuk fitur riset-password
+  version: 1.0.0
+  contact:
+    email: sugab.dwi88@gmail.com
+servers:
+  - url: http://localhost:3000/api/v1
+tags:
+  - name: "Auth"
+    description: Operations about auth user
+  - name: "Users"
+    description: Operations about user
+paths:
+  /auth/register :
+    post:
+      tags:
+        - "Auth"
+      summary: Register user
+      description: Register user with the provided information.
+      requestBody:
+        $ref: '#/components/requestBodies/createUser'
+                
+      responses:
+        201:
+          description: User created was successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User Created Successfully
+                  data:
+                    $ref: '#/components/schemas/UserResponse'
+
+        400:
+          description: Input must be required!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Input must be required
+                  data:
+                    example: ~
+
+        401:
+          description: Email already used!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Email already used!
+                  data:
+                    example: ~
+
+  /auth/login :
+    post:
+      tags:
+        - "Auth"
+      summary: Login user
+      description: Login user with the provided information.
+      requestBody:
+        $ref: '#/components/requestBodies/createLogin'
+                
+      responses:
+        201:
+          description: Login was successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Login was successfull
+                  data:
+                    $ref: '#/components/schemas/LoginResponse'
+
+        400:
+          description: invalid email or password!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: invalid email or password!
+                  data:
+                    example: ~         
+
+  /auth/authenticate :
+    get:
+      tags:
+        - "Auth"
+      summary: Authenticate user
+      description: Authenticate user with the token.
+                
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: OK
+                  data:
+                    $ref: '#/components/schemas/UserResponse'
+
+        403:
+          description: Token not provided!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: token not provided!!
+                  data:
+                    example: ~
+
+        409:
+          description: jwt malformed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: jwt malformed
+                  data:
+                    example: ~        
+      security:
+        - bearerAuth: []
+
+  /users:
+    get:
+      tags:
+        - "Users"
+      summary: Get all users
+      parameters:
+        - schema:
+            type: string
+          name: search
+          in: query
+          description: search for get first_name users
+      description: Get all users
+      responses:
+        200:
+          description: Success get all users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Success
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        first_name:
+                          type: string
+                          example: Bagus Dwi
+                        last_name:
+                          type: string
+                          example: Putra Adiyono
+                        email:
+                          type: string
+                          example: sugab.dwi88@gmail.com
+
+components:
+  securitySchemes:
+    bearerAuth:       
+      type: http
+      scheme: bearer       
+      bearerFormat: JWT
+  schemas:
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Bagus Dwi
+        email:
+          type: string
+          example: sugab.dwi88@gmail.com
+    LoginResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Bagus Dwi
+        email:
+          type: string
+          example: sugab.dwi88@gmail.com
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDY1NTQ1N30.7mHMjtq0QvKWfZ41Nb5XMXKyfkcg4l7LX34yC-HBj3A 
+
+  requestBodies:
+    createLogin:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: sugab.dwi88@gmail.com
+              password:
+                type: string
+                example: 123456
+    createUser: 
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: Bagus Dwi
+              email:
+                type: string
+                example: sugab.dwi88@gmail.com
+              password:
+                type: string
+                example: 123456
