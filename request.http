@@ -3,8 +3,8 @@ POST http://localhost:3000/api/v1/auth/register
 Content-Type: application/json
 
 {
-    "name": "Bagus Dwi",
-    "email": "sugab.dwi88@gmail.com",
+    "name": "Akun Kuliah",
+    "email": "21082010195@student.upnjatim.ac.id",
     "password": "123456"
 }
 
@@ -13,13 +13,13 @@ POST http://localhost:3000/api/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "sugab.dwi88@gmail.com",
+    "email": "21082010195@student.upnjatim.ac.id",
     "password": "123456"
 }
 
 ### login token
 GET http://localhost:3000/api/v1/auth/authenticate
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkJhZ3VzIER3aSIsImxhc3RfbmFtZSI6IlB1dHJhIEFkaXlvbm8iLCJlbWFpbCI6InN1Z2FiLmR3aTg4QGdtYWlsLmNvbSIsImlhdCI6MTcxNDcyNjI4MX0.x7yFBTNY58jpH11_X3yJEwcBasavyiTx0LELQWhzeIo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkJhZ3VzIER3aSIsImVtYWlsIjoic3VnYWIuZHdpODhAZ21haWwuY29tIiwiaWF0IjoxNzE1NzY1ODY1fQ.IRPCLZZP0EOmctU_4T03eAsoyQ6rnknt_Y5GFodPuDA
 
 ### Get all user
 GET http://localhost:3000/api/v1/users

@@ -8,6 +8,10 @@ const { SENTRY_DSN } = process.env;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+// const http = require('http');
+// const server = http.createServer(app);
+// const { Server } = require('socket.io');
+// const io = new Server(server);
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -27,6 +31,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(routes);
+
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+
+//     socket.on('disconnect', () => {
+//         console.log('user disconnected');
+//     });
+// });
 
 app.get("/", (req, res) =>
   res.json({ status: true, message: "Hello World!", data: null })

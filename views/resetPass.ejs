@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(24, 200, 200);
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        width: 400px;
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 2);
+        border-radius: 10px;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 24px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin: 10px 0;
+        display: block;
+        font-size: 16px;
+      }
+
+      input {
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: calc(100% - 32px);
+      }
+
+      button {
+        padding: 15px;
+        margin-top: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Reset Password</h1>
+      <form
+        class="resetPass-form"
+        action="/api/v1/reset-pass?token=<%=token%>"
+        method="post"
+      >
+        <label for="password">New Password :</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="*******"
+          required
+        />
+        <label for="passwordConfirmation">Confirm New Password :</label>
+        <input
+          type="password"
+          id="passwordConfirmation"
+          name="passwordConfirmation"
+          placeholder="*******"
+          required
+        />
+        <button type="submit">Kirim</button>
+      </form>
+    </div>
+  </body>
+</html>

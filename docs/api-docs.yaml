@@ -215,6 +215,153 @@ paths:
                           type: string
                           example: sugab.dwi88@gmail.com
 
+  /forget-pass:
+    post:
+      tags:
+        - "Users"
+      summary: Forget Password Email User
+      description: Forget Password Email User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: sugab.dwi88@gmail.com
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Success Send Email Forget Password"
+                  
+        404:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "user not found"
+                  data: 
+                    example: ~
+
+  /reset-pass:
+    post:
+      tags:
+        - "Users"
+      summary: Reset Password Email User
+      parameters:
+        - schema:
+            type: string
+          name: token
+          in: query
+          description: token for update password
+      description: Reset Password Email User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: qwerty
+                passwordConfirmation:
+                  type: string
+                  example: qwerty
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Your password has been updated successfully!"
+                  data: 
+                    properties:
+                      id: 
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: Bagus Dwi
+                      email:
+                        type: string
+                        example: sugab.dwi88@gmail.com
+
+        400:
+          description: Both password and password confirmation are required!!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Both password and password confirmation are required!!"
+                  data: 
+                    example: ~
+        
+        401:
+          description: Please ensure that the password and password confirmation match!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Please ensure that the password and password confirmation match!"
+                  data: 
+                    example: ~
+                  
+        403:
+          description: Invalid or expired token!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Invalid or expired token!"
+                  data: 
+                    example: ~
+
 components:
   securitySchemes:
     bearerAuth:       
