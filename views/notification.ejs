@@ -3,70 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notification</title>
+    <title>Notifications</title>
     <style>
-      body {
-        color: black;
-        background-color: rgb(24, 200, 200);
-      }
-        #notification-box {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 20px;
-          top: 100px;
-          width: 60%;
-          margin: auto;
-          background-color: #fff;
-          padding: 20px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 2);
-          border-radius: 5px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
-  
-        .notification-box-content {
-          display: flex;
-          flex-grow: 1;
-          padding: 10px;
-          background-color: #007bff;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
         }
-  
-        .notification-box-content p {
-          margin: 0;
+        main {
+            margin: 20px;
         }
-  
-        #close-notification-box {
-          padding: 5px;
-          background-color: #007bff;
-          color: #fff;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
+        h2 {
+            margin-bottom: 10px;
         }
-      </style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        li b {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        li p {
+            color: #666;
+            margin: 0;
+        }
+        li span {
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-    <h1 align="center">Notification Page</h1>
-    <div id="notification-box">
-
+    <header>
+        <h1>Notifications</h1>
+    </header>
+    <main>  
+        <h2>Notification List : </h2>
+        <ul id="notification-list">
+            <% notifications.forEach(notification => { %>
+                <li>
+                    <b><%= notification.title %></b>
+                    <p><%= notification.message %></p>
+                    <span><%= notification.createdDate %></span>
+                </li>
+            <% }) %>
+        </ul>
+        <footer>
+          <p>&copy; 2024 Bagusdev. All rights reserved.</p>
+      </footer>
+    </main>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const socket = io();
-      const notificationBox = document.getElementById("notification-box");
-    
-      socket.on("notif", (value) => {
-        let { email, status, message } = value;
-        let judul = document.createElement("h4");
-        let pesan = document.createElement("p");
-        let boxContent = document.createElement("div");
-        judul.innerHTML = status;
-        pesan.innerHTML = message + " with Email = " + email;
-        boxContent.classList.add("notification-box-content");
-        boxContent.append(judul, pesan);
-        notificationBox.append(boxContent);
-      });
+        const socket = io();
+        const notifications = document.getElementById("notification-list");
+        const userId = `<%= userID %>`;
+
+        socket.on(`user-${userId}`, (notification) => {
+            const item = document.createElement('li');
+            item.innerHTML = `
+                <b>${notification.title}</b>
+                <p>${notification.message}</p>
+                <span>${notification.createdDate}</span>
+            `;
+            notifications.appendChild(item);
+        });
     </script>
-    </div>
 </body>
 </html>

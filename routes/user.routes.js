@@ -15,6 +15,7 @@ const restrict = require("../middlewares/auth.middlewares");
 
 // API Users
 router.get("/users", index);
+router.get("/users/:id/notification", pageNotification);
 
 // API Auth
 router.post("/auth/register", register);
@@ -25,7 +26,6 @@ router.get("/auth/authenticate", restrict, auth);
 router.get("/login", pageLogin);
 router.get("/forget-pass", pageForgetPass);
 router.get("/reset-pass", pageResetPass);
-router.get("/notification", pageNotification)
 
 // API Forget Password Email
 router.post("/forget-pass", forgetPass);

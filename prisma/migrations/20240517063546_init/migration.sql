@@ -13,6 +13,7 @@ CREATE TABLE "notifications" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "message" TEXT NOT NULL,
+    "createdDate" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
 
     CONSTRAINT "notifications_pkey" PRIMARY KEY ("id")
